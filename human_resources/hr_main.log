@@ -1,0 +1,106 @@
+> REM =======================================================
+> REM cleanup section
+> REM =======================================================
+> DROP USER hr CASCADE
+
+Error starting at line : 86 in command -
+DROP USER hr CASCADE
+Error report -
+SQL Error: ORA-01918: user 'HR' does not exist
+01918. 00000 -  "user '%s' does not exist"
+*Cause:    User does not exist in the system.
+*Action:   Verify the user name is correct.
+> REM =======================================================
+> REM create user
+> REM three separate commands, so the create user command 
+> REM will succeed regardless of the existence of the 
+> REM DEMO and TEMP tablespaces 
+> REM =======================================================
+> CREATE USER hr IDENTIFIED BY &pass
+
+Error starting at line : 95 in command -
+CREATE USER hr IDENTIFIED BY o
+Error at Command Line : 95 Column : 30
+Error report -
+SQL Error: ORA-01031: insufficient privileges
+01031. 00000 -  "insufficient privileges"
+*Cause:    An attempt was made to change the current username or password
+           without the appropriate privilege. This error also occurs if
+           attempting to install a database without the necessary operating
+           system privileges.
+           When Trusted Oracle is configure in DBMS MAC, this error may occur
+           if the user was granted the necessary privilege at a higher label
+           than the current login.
+*Action:   Ask the database administrator to perform the operation or grant
+           the required privileges.
+           For Trusted Oracle users getting this error although granted the
+           the appropriate privilege at a higher label, ask the database
+           administrator to regrant the privilege at the appropriate label.
+> ALTER USER hr DEFAULT TABLESPACE &tbs
+              QUOTA UNLIMITED ON &tbs
+
+Error starting at line : 97 in command -
+ALTER USER hr DEFAULT TABLESPACE &tbs
+              QUOTA UNLIMITED ON &tbs
+Error report -
+SQL Error: ORA-00922: missing or invalid option
+00922. 00000 -  "missing or invalid option"
+*Cause:    
+*Action:
+> ALTER USER hr TEMPORARY TABLESPACE &ttbs
+
+Error starting at line : 100 in command -
+ALTER USER hr TEMPORARY TABLESPACE &ttbs
+Error report -
+SQL Error: ORA-02156: invalid TEMPORARY tablespace identifier
+02156. 00000 -  "invalid TEMPORARY tablespace identifier"
+*Cause:    An identifier does not follow TEMPORARY TABLESPACE.
+*Action:   Place a tablespace name after TEMPORARY TABLESPACE.
+> GRANT CREATE SESSION, CREATE VIEW, ALTER SESSION, CREATE SEQUENCE TO hr
+
+Error starting at line : 102 in command -
+GRANT CREATE SESSION, CREATE VIEW, ALTER SESSION, CREATE SEQUENCE TO hr
+Error report -
+SQL Error: ORA-01031: insufficient privileges
+01031. 00000 -  "insufficient privileges"
+*Cause:    An attempt was made to change the current username or password
+           without the appropriate privilege. This error also occurs if
+           attempting to install a database without the necessary operating
+           system privileges.
+           When Trusted Oracle is configure in DBMS MAC, this error may occur
+           if the user was granted the necessary privilege at a higher label
+           than the current login.
+*Action:   Ask the database administrator to perform the operation or grant
+           the required privileges.
+           For Trusted Oracle users getting this error although granted the
+           the appropriate privilege at a higher label, ask the database
+           administrator to regrant the privilege at the appropriate label.
+> GRANT CREATE SYNONYM, CREATE DATABASE LINK, RESOURCE , UNLIMITED TABLESPACE TO hr
+
+Error starting at line : 103 in command -
+GRANT CREATE SYNONYM, CREATE DATABASE LINK, RESOURCE , UNLIMITED TABLESPACE TO hr
+Error report -
+SQL Error: ORA-01031: insufficient privileges
+01031. 00000 -  "insufficient privileges"
+*Cause:    An attempt was made to change the current username or password
+           without the appropriate privilege. This error also occurs if
+           attempting to install a database without the necessary operating
+           system privileges.
+           When Trusted Oracle is configure in DBMS MAC, this error may occur
+           if the user was granted the necessary privilege at a higher label
+           than the current login.
+*Action:   Ask the database administrator to perform the operation or grant
+           the required privileges.
+           For Trusted Oracle users getting this error although granted the
+           the appropriate privilege at a higher label, ask the database
+           administrator to regrant the privilege at the appropriate label.
+> REM =======================================================
+> REM grants from sys schema
+> REM =======================================================
+> CONNECT sys/&pass_sys@&connect_string AS SYSDBA
+
+Error starting at line : 109 in command -
+CONNECT sys/&pass_sys@&connect_string AS SYSDBA
+Error report -
+Connection Failed
+Commit
